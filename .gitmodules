@@ -1,0 +1,6 @@
+[submodule "flatpak-builder-tools"]
+	path = flatpak-builder-tools
+	url = https://github.com/flatpak/flatpak-builder-tools.git
+[submodule "NexusMods.App"]
+	path = NexusMods.App
+	url = https://github.com/Nexus-Mods/NexusMods.App

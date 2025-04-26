@@ -1,0 +1,101 @@
+app-id: com.nexusmods.app
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.dotnet9
+command: NexusMods.App
+
+build-options:
+    # we don't really need the PATH thingies
+    # as we don't do install.sh
+    # see https://github.com/flathub/org.freedesktop.Sdk.Extension.dotnet9#publishing-self-contained-app-and-trimmed-binaries
+    prepend-path: /usr/lib/sdk/dotnet9/bin
+    append-ld-library-path: /usr/lib/sdk/dotnet9/lib
+    prepend-pkg-config-path: /usr/lib/sdk/dotnet9/lib/pkgconfig
+    arch:
+      aarch64:
+        env:
+          RUNTIME: "linux-arm64"
+      x86_64:
+        env:
+          RUNTIME: "linux-x64"
+
+finish-args:
+    # needed by device=input, otherwise device=all and remove this line
+  - --require-version=1.16.0
+  - --device=dri
+  - --device=input # controller support
+  - --share=ipc # for x11
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --filesystem=~/.local/share/Steam:ro
+  - --env=DOTNET_ROOT=/app/lib/dotnet
+
+modules:
+  - name: app
+    buildsystem: simple
+    build-options:
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+        DOTNET_NOLOGO: "true"
+
+        # See https://nexus-mods.github.io/NexusMods.App/developers/Contributing/#for-package-maintainers
+        INSTALLATION_METHOD_PACKAGE_MANAGER: "1"
+
+    sources:
+      # this is just temporary until the git lfs thing is resolved
+      # make sure HEAD points to latest release commit
+      - type: dir
+        path: /var/home/user/git/com.nexusmods.app/NexusMods.App
+# LFS is brokey :(
+#      - type: git
+#        url: https://github.com/Nexus-Mods/NexusMods.App
+#        tag: "v0.9.2"
+#        commit: ecff6c508df2d47c3470bc67aa91b160dc8c203b
+#        x-checker-data:
+#          type: git
+#          tag-pattern: ^v([\d.]+)$
+
+        # no worky, needs smapi tarball to work as that is a submodule in git, do later
+#      - type: archive
+#        url: https://github.com/Nexus-Mods/NexusMods.App/archive/refs/tags/v0.9.2.tar.gz
+#        sha256: 394ad2d7abdb58a1a132b5a3f4b1e4db2b6623603b586f71a6179bbadd049bd3
+
+
+      - nuget-sources.json
+      #- nuget-sources.aarch64.json
+      - nuget-sources.x86_64.json
+
+      # do something like this, investigate later
+      # possible with specifiyng different dirs during dotnet-generator.py?
+#      - type: file
+#        path: nuget-sources.aarch64.json
+#        only-arches:
+#          - aarch64
+#      - type: file
+#        path: nuget-sources.x86_64.json
+#        only-arches:
+#          - x86_64
+
+    build-commands:
+      - dotnet publish -p:FullRelease=True --source nuget-sources/ -c Release --runtime $RUNTIME --self-contained true
+
+      - mkdir -p ${FLATPAK_DEST}/{bin,lib}
+      - cp -r src/NexusMods.App/bin/Release/net9.0/$RUNTIME/publish/* ${FLATPAK_DEST}/bin
+
+      # Use own build of 7zz as that supports RAR files
+      # See https://nexus-mods.github.io/NexusMods.App/developers/Contributing/#for-package-maintainers
+      - cp src/NexusMods.App/bin/Release/net9.0/$RUNTIME/runtimes/$RUNTIME/native/7zz ${FLATPAK_DEST}/bin
+
+      - install -D src/NexusMods.App/icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+      - install -D src/NexusMods.App/${FLATPAK_ID}.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
+
+      - install -D src/NexusMods.App/${FLATPAK_ID}.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - desktop-file-edit --set-key Exec --set-value "NexusMods.App %u" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - desktop-file-edit --set-key TryExec --set-value "NexusMods.App" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - desktop-file-edit --remove-key X-AppImage-Integrate ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - desktop-file-edit --remove-key X-AppImage-Name ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - desktop-file-edit --remove-key X-AppImage-Arch ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
