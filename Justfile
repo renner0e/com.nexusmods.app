@@ -8,6 +8,7 @@ build:
     --keep-build-dirs \
     --install-deps-from=flathub \
     --force-clean \
+    --verbose \
     build --user com.nexusmods.app.yaml
 
 lint:
@@ -24,8 +25,8 @@ update-deps:
   # Download upstream repo and flatpak-builder-tools
   git submodule update --init --recursive
 
-  # set this commit hash to latest upstream release
-  git --git-dir=NexusMods.App/.git/ checkout ecff6c508df2d47c3470bc67aa91b160dc8c203b
+  # set this to latest upstream release
+  git --git-dir=NexusMods.App/.git/ checkout v0.10.2
 
   flatpak-builder-tools/dotnet/flatpak-dotnet-generator.py nuget-sources.aarch64.json \
     --destdir nuget-sources \
@@ -42,7 +43,7 @@ update-deps:
     NexusMods.App/NexusMods.App.sln
 
   # should be march agnostic
-  flatpak-builder-tools/dotnet/flatpak-dotnet-generator.py  nuget-sources.json \
+  flatpak-builder-tools/dotnet/flatpak-dotnet-generator.py nuget-sources.json \
     --destdir nuget-sources \
     --dotnet $DOTNET_VERS \
     --freedesktop $RUNTIME \

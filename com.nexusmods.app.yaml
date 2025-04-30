@@ -46,39 +46,18 @@ modules:
         INSTALLATION_METHOD_PACKAGE_MANAGER: "1"
 
     sources:
-      # this is just temporary until the git lfs thing is resolved
-      # make sure HEAD points to latest release commit
-      - type: dir
-        path: /var/home/user/git/com.nexusmods.app/NexusMods.App
-# LFS is brokey :(
-#      - type: git
-#        url: https://github.com/Nexus-Mods/NexusMods.App
-#        tag: "v0.9.2"
-#        commit: ecff6c508df2d47c3470bc67aa91b160dc8c203b
-#        x-checker-data:
-#          type: git
-#          tag-pattern: ^v([\d.]+)$
+      - type: git
+        url: https://github.com/Nexus-Mods/NexusMods.App
+        tag:  v0.10.2
+        commit: 8f2920c93ca3c0ad77b687ba036b86fc9d365fc9
 
-        # no worky, needs smapi tarball to work as that is a submodule in git, do later
-#      - type: archive
-#        url: https://github.com/Nexus-Mods/NexusMods.App/archive/refs/tags/v0.9.2.tar.gz
-#        sha256: 394ad2d7abdb58a1a132b5a3f4b1e4db2b6623603b586f71a6179bbadd049bd3
-
-
+        # if you want main branch for whatever reason
+        #tag: main
+      # TODO: figure out a way to only download arm sources on arm arch etc.
       - nuget-sources.json
       #- nuget-sources.aarch64.json
       - nuget-sources.x86_64.json
 
-      # do something like this, investigate later
-      # possible with specifiyng different dirs during dotnet-generator.py?
-#      - type: file
-#        path: nuget-sources.aarch64.json
-#        only-arches:
-#          - aarch64
-#      - type: file
-#        path: nuget-sources.x86_64.json
-#        only-arches:
-#          - x86_64
 
     build-commands:
       - dotnet publish -p:FullRelease=True --source nuget-sources/ -c Release --runtime $RUNTIME --self-contained true
