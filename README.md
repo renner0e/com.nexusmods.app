@@ -33,13 +33,18 @@ https://docs.flatpak.org/en/latest/dotnet.html
 
 # Required Dependencies:
 
-[`flatpak-builder`](https://flathub.org/apps/org.flatpak.Builder) installed from flatpak
+[`flatpak-builder`](https://flathub.org/apps/org.flatpak.Builder) and [flatpak-external-data-checker](https://flathub.org/apps/org.flathub.flatpak-external-data-checker) installed from flatpak
 
 `git` on host
 
 `python` for [`flatpak-dotnet-generator.py`](https://github.com/flatpak/flatpak-builder-tools/tree/master/dotnet)
 
 [`just`](https://github.com/casey/just)
+
+
+`flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
+
+`flatpak install --system org.flathub.flatpak-external-data-checker org.flatpak.Builder`
 
 
 # How to make a new release
