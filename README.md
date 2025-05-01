@@ -12,7 +12,7 @@ https://docs.flatpak.org/en/latest/dotnet.html
 
 
 
-#Required Dependencies:
+# Required Dependencies:
 
 [`flatpak-builder`](https://flathub.org/apps/org.flatpak.Builder) installed from flatpak
 
