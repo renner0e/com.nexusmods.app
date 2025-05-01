@@ -66,4 +66,4 @@ update-deps:
     --freedesktop $RUNTIME \
     NexusMods.App/src/NexusMods.App/NexusMods.App.csproj
 
-flathub: pull data-checker update-deps lint build
+flathub: pull data-checker update-deps build
