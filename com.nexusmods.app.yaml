@@ -50,6 +50,10 @@ modules:
         url: https://github.com/Nexus-Mods/NexusMods.App
         tag:  v0.10.2
         commit: 8f2920c93ca3c0ad77b687ba036b86fc9d365fc9
+        x-checker-data:
+          type: git
+          tag-pattern: "^v([\\d.]+)$"
+          is-important: true
 
         # if you want main branch for whatever reason
         #tag: main
