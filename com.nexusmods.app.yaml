@@ -55,8 +55,6 @@ modules:
           tag-pattern: "^v([\\d.]+)$"
           is-important: true
 
-        # if you want main branch for whatever reason
-        #tag: main
       # TODO: figure out a way to only download arm sources on arm arch etc.
       - nuget-sources.json
       #- nuget-sources.aarch64.json
