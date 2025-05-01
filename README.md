@@ -1,9 +1,28 @@
 WIP
 
-upstream https://github.com/Nexus-Mods/NexusMods.App/
+Currently fails with:
+```
+❯ flatpak run --command=bash com.nexusmods.app
+[📦 com.nexusmods.app ~]$ /app/bin/NexusMods.App
+Unhandled exception. System.AggregateException: One or more errors occurred. (Failed to acquire the lock for the single process.)
+---> NexusMods.SingleProcess.Exceptions.SingleProcessLockException: Failed to acquire the lock for the single process.
+at NexusMods.SingleProcess.CliServer.StartTcpListenerAsync() in /run/build/app/src/NexusMods.SingleProcess/CliServer.cs:line 72
+at NexusMods.SingleProcess.CliServer.StartCliServerAsync() in /run/build/app/src/NexusMods.SingleProcess/CliServer.cs:line 58
+--- End of inner exception stack trace ---
+at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+at System.Threading.Tasks.Task.Wait(TimeSpan timeout, CancellationToken cancellationToken)
+at System.Threading.Tasks.Task.Wait(TimeSpan timeout)
+at NexusMods.App.Program.Main(String[] args) in /run/build/app/src/NexusMods.App/Program.cs:line 94
+Aborted (core dumped)
+```
 
-https://nexus-mods.github.io/NexusMods.App/developers/Contributing/#for-package-maintainers
 
+[Upstream](https://github.com/Nexus-Mods/NexusMods.App)
+
+[Upstream Contrib Docs](https://nexus-mods.github.io/NexusMods.App/developers/Contributing/#for-package-maintainers)
+
+Flatpak Docs:
 https://github.com/flathub/org.freedesktop.Sdk.Extension.dotnet9
 
 https://github.com/flatpak/flatpak-builder-tools/tree/master/dotnet
