@@ -48,8 +48,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/Nexus-Mods/NexusMods.App
-        tag:  v0.10.2
-        commit: 8f2920c93ca3c0ad77b687ba036b86fc9d365fc9
+        tag:  v0.11.3
+        commit: e61ac9f622780f4701acc06924fc1939c20de850
         x-checker-data:
           type: git
           tag-pattern: "^v([\\d.]+)$"
