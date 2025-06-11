@@ -12,8 +12,10 @@ build:
     --verbose \
     build --user com.nexusmods.app.yaml
 
-lint:
+manifest-lint:
   flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest com.nexusmods.app.yaml
+
+metadata-lint:
   flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream NexusMods.App/src/NexusMods.App/com.nexusmods.app.metainfo.xml
 
 data-checker:
