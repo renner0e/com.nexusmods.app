@@ -10,16 +10,16 @@ build-options:
     # we don't really need the PATH thingies
     # as we don't do install.sh
     # see https://github.com/flathub/org.freedesktop.Sdk.Extension.dotnet9#publishing-self-contained-app-and-trimmed-binaries
-    prepend-path: /usr/lib/sdk/dotnet9/bin
-    append-ld-library-path: /usr/lib/sdk/dotnet9/lib
-    prepend-pkg-config-path: /usr/lib/sdk/dotnet9/lib/pkgconfig
-    arch:
-      aarch64:
-        env:
-          RUNTIME: "linux-arm64"
-      x86_64:
-        env:
-          RUNTIME: "linux-x64"
+  prepend-path: /usr/lib/sdk/dotnet9/bin
+  append-ld-library-path: /usr/lib/sdk/dotnet9/lib
+  prepend-pkg-config-path: /usr/lib/sdk/dotnet9/lib/pkgconfig
+  arch:
+    aarch64:
+      env:
+        RUNTIME: linux-arm64
+    x86_64:
+      env:
+        RUNTIME: linux-x64
 
 finish-args:
     # needed by device=input, otherwise device=all and remove this line
@@ -38,12 +38,12 @@ modules:
     buildsystem: simple
     build-options:
       env:
-        DOTNET_CLI_TELEMETRY_OPTOUT: "true"
-        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
-        DOTNET_NOLOGO: "true"
+        DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
+        DOTNET_NOLOGO: 'true'
 
         # See https://nexus-mods.github.io/NexusMods.App/developers/Contributing/#for-package-maintainers
-        INSTALLATION_METHOD_PACKAGE_MANAGER: "1"
+        INSTALLATION_METHOD_PACKAGE_MANAGER: '1'
 
     sources:
       - type: git
@@ -52,7 +52,7 @@ modules:
         commit: e61ac9f622780f4701acc06924fc1939c20de850
         x-checker-data:
           type: git
-          tag-pattern: "^v([\\d.]+)$"
+          tag-pattern: ^v([\d.]+)$
           is-important: true
 
       # TODO: figure out a way to only download arm sources on arm arch etc.
@@ -62,14 +62,16 @@ modules:
 
 
     build-commands:
-      - dotnet publish -p:FullRelease=True --source nuget-sources/ -c Release --runtime $RUNTIME --self-contained true
+      - dotnet publish -p:FullRelease=True --source nuget-sources/ -c Release --runtime
+        $RUNTIME --self-contained true
 
       - mkdir -p ${FLATPAK_DEST}/{bin,lib}
       - cp -r src/NexusMods.App/bin/Release/net9.0/$RUNTIME/publish/* ${FLATPAK_DEST}/bin
 
       # Use own build of 7zz as that supports RAR files
       # See https://nexus-mods.github.io/NexusMods.App/developers/Contributing/#for-package-maintainers
-      - cp src/NexusMods.App/bin/Release/net9.0/$RUNTIME/runtimes/$RUNTIME/native/7zz ${FLATPAK_DEST}/bin
+      - cp src/NexusMods.App/bin/Release/net9.0/$RUNTIME/runtimes/$RUNTIME/native/7zz
+        ${FLATPAK_DEST}/bin
 
       - install -D src/NexusMods.App/icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
       - install -D src/NexusMods.App/${FLATPAK_ID}.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
