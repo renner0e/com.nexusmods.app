@@ -7,6 +7,7 @@ build:
     --install \
     --keep-build-dirs \
     --install-deps-from=flathub \
+    --disable-rofiles-fuse \
     --force-clean \
     --verbose \
     build --user com.nexusmods.app.yaml
