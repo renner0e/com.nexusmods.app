@@ -70,4 +70,9 @@ update-external-sources:
     --freedesktop $RUNTIME \
     NexusMods.App/src/NexusMods.App/NexusMods.App.csproj
 
-flathub: pull data-checker update-deps build
+
+bump-upstream:
+  flatpak run org.flathub.flatpak-external-data-checker com.nexusmods.app.yaml --require-important-update --edit-only
+
+lint: manifest-lint metadata-lint
+flathub: pull bump-upstream update-external-sources lint build
