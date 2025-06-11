@@ -23,9 +23,7 @@ build-options:
 
 finish-args:
     # needed by device=input, otherwise device=all and remove this line
-  - --require-version=1.16.0
-  - --device=dri
-  - --device=input # controller support
+  - --device=all # change this to device=input + device=dri when available more widely
   - --share=ipc # for x11
   - --share=network
   - --socket=fallback-x11
