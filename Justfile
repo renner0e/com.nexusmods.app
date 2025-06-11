@@ -25,6 +25,7 @@ pull:
   #!/bin/bash
   if [ -d "NexusMods.App/.git" ]; then
     echo "Directory NexusMods upstream repo folder exists. Pulling latest changes..."
+    git --git-dir=NexusMods.App/.git checkout main
     git --git-dir=NexusMods.App/.git pull
   else
   # Download upstream repo
