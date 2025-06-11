@@ -44,9 +44,9 @@ pull:
       git clone --depth 1 https://github.com/flatpak/flatpak-builder-tools
     fi
 
-update-deps:
+update-external-sources:
   #!/bin/sh
-  RUNTIME="24.08"
+  RUNTIME="24.08" # upgrade this when runtime in manifest upgrades
   DOTNET_VERS="9"
 
   flatpak-builder-tools/dotnet/flatpak-dotnet-generator.py nuget-sources.aarch64.json \
