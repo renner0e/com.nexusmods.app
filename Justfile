@@ -27,25 +27,17 @@ pull:
   LATEST_TAG=$(yq '.modules[] | select(.name == "app") | .sources[] | select(.type == "git") | .tag' com.nexusmods.app.yaml)
   if [ -d "NexusMods.App/.git" ]; then
     echo "Directory NexusMods upstream repo folder exists. Pulling latest changes..."
-    git --git-dir=NexusMods.App/.git checkout main
-    git --git-dir=NexusMods.App/.git pull
-    git --git-dir=NexusMods.App/.git checkout $LATEST_TAG
+    cd NexusMods.App
+    git checkout main
+    git pull
+    git checkout $LATEST_TAG
   else
   # Download upstream repo
     echo " upstream repo does not exist. Cloning latest release..."
     git clone "https://github.com/Nexus-Mods/NexusMods.App.git"
-    git --git-dir=NexusMods.App/.git checkout $LATEST_TAG
+    cd NexusMods.App
+    git checkout $LATEST_TAG
   fi
-
-
-  if [ -d "flatpak-builder-tools/.git" ]; then
-      echo "flatpak builder tools folder exists. Pulling latest changes..."
-      git --git-dir=flatpak-builder-tools/.git pull
-    else
-    # flatpak-builder-tools
-      echo "flatpak builder tools folder does not exist. Cloning latest release..."
-      git clone --depth 1 https://github.com/flatpak/flatpak-builder-tools
-    fi
 
 update-external-sources:
   #!/bin/sh
