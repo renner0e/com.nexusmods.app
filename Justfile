@@ -23,15 +23,17 @@ data-checker:
 
 pull:
   #!/bin/bash
+  LATEST_TAG=$(yq '.modules[] | select(.name == "app") | .sources[] | select(.type == "git") | .tag' com.nexusmods.app.yaml)
   if [ -d "NexusMods.App/.git" ]; then
     echo "Directory NexusMods upstream repo folder exists. Pulling latest changes..."
     git --git-dir=NexusMods.App/.git checkout main
     git --git-dir=NexusMods.App/.git pull
+    git --git-dir=NexusMods.App/.git checkout $LATEST_TAG
   else
   # Download upstream repo
     echo " upstream repo does not exist. Cloning latest release..."
-    LATEST_TAG=$(curl -s https://api.github.com/repos/Nexus-Mods/NexusMods.App/releases/latest | grep tag_name | cut -d '"' -f 4)
-    git clone --depth 1 --branch "$LATEST_TAG" "https://github.com/Nexus-Mods/NexusMods.App.git"
+    git clone "https://github.com/Nexus-Mods/NexusMods.App.git"
+    git --git-dir=NexusMods.App/.git checkout $LATEST_TAG
   fi
 
 
@@ -46,7 +48,7 @@ pull:
 
 update-external-sources:
   #!/bin/sh
-  RUNTIME="24.08" # upgrade this when runtime in manifest upgrades
+  RUNTIME=$(yq ".runtime-version" com.nexusmods.app.yaml)
   DOTNET_VERS="9"
 
   flatpak-builder-tools/dotnet/flatpak-dotnet-generator.py nuget-sources.aarch64.json \
