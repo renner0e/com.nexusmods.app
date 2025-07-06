@@ -23,6 +23,7 @@ data-checker:
 
 pull:
   #!/bin/bash
+  set -eoux pipefail
   LATEST_TAG=$(yq '.modules[] | select(.name == "app") | .sources[] | select(.type == "git") | .tag' com.nexusmods.app.yaml)
   if [ -d "NexusMods.App/.git" ]; then
     echo "Directory NexusMods upstream repo folder exists. Pulling latest changes..."
