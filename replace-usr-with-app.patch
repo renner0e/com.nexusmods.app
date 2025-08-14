@@ -1,0 +1,8 @@
+diff --git i/usr/bin/webapp-manager w/usr/bin/webapp-manager
+index 144e87c..e2cd349 100755
+--- i/usr/bin/webapp-manager
++++ w/usr/bin/webapp-manager
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-/usr/lib/webapp-manager/webapp-manager.py &
++/app/lib/webapp-manager/webapp-manager.py &
