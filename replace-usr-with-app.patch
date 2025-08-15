@@ -6,3 +6,83 @@ index 144e87c..e2cd349 100755
  #!/bin/sh
 -/usr/lib/webapp-manager/webapp-manager.py &
 +/app/lib/webapp-manager/webapp-manager.py &
+diff --git i/usr/lib/webapp-manager/common.py w/usr/lib/webapp-manager/common.py
+index 58a6b80..75bc868 100644
+--- i/usr/lib/webapp-manager/common.py
++++ w/usr/lib/webapp-manager/common.py
+@@ -42,7 +42,7 @@ def idle(func):
+ 
+ # i18n
+ APP = 'webapp-manager'
+-LOCALE_DIR = "/usr/share/locale"
++LOCALE_DIR = "/app/share/locale"
+ locale.bindtextdomain(APP, LOCALE_DIR)
+ gettext.bindtextdomain(APP, LOCALE_DIR)
+ gettext.textdomain(APP)
+@@ -341,9 +341,9 @@ class WebAppManager:
+                 exec_string += " {}".format(custom_parameters)
+             exec_string += " \"" + url + "\"" + "'"
+             # Create a Firefox profile
+-            shutil.copytree('/usr/share/webapp-manager/firefox/profile', firefox_profile_path, dirs_exist_ok = True)
++            shutil.copytree('/app/share/webapp-manager/firefox/profile', firefox_profile_path, dirs_exist_ok = True)
+             if navbar:
+-                shutil.copy('/usr/share/webapp-manager/firefox/userChrome-with-navbar.css',
++                shutil.copy('/app/share/webapp-manager/firefox/userChrome-with-navbar.css',
+                             os.path.join(firefox_profile_path, "chrome", "userChrome.css"))
+         elif browser.browser_type == BROWSER_TYPE_LIBREWOLF_FLATPAK:
+             # LibreWolf flatpak
+@@ -360,9 +360,9 @@ class WebAppManager:
+                 exec_string += " {}".format(custom_parameters)
+             exec_string += " \"" + url + "\"" + "'"
+             # Create a Firefox profile
+-            shutil.copytree('/usr/share/webapp-manager/firefox/profile', firefox_profile_path, dirs_exist_ok = True)
++            shutil.copytree('/app/share/webapp-manager/firefox/profile', firefox_profile_path, dirs_exist_ok = True)
+             if navbar:
+-                shutil.copy('/usr/share/webapp-manager/firefox/userChrome-with-navbar.css',
++                shutil.copy('/app/share/webapp-manager/firefox/userChrome-with-navbar.css',
+                             os.path.join(firefox_profile_path, "chrome", "userChrome.css"))
+         elif browser.browser_type == BROWSER_TYPE_FLOORP_FLATPAK:
+             # Floorp flatpak
+@@ -379,9 +379,9 @@ class WebAppManager:
+                 exec_string += " {}".format(custom_parameters)
+             exec_string += " \"" + url + "\"" + "'"
+             # Create a Firefox profile
+-            shutil.copytree('/usr/share/webapp-manager/firefox/profile', firefox_profile_path, dirs_exist_ok = True)
++            shutil.copytree('/app/share/webapp-manager/firefox/profile', firefox_profile_path, dirs_exist_ok = True)
+             if navbar:
+-                shutil.copy('/usr/share/webapp-manager/firefox/userChrome-with-navbar.css',
++                shutil.copy('/app/share/webapp-manager/firefox/userChrome-with-navbar.css',
+                             os.path.join(firefox_profile_path, "chrome", "userChrome.css"))
+         elif browser.browser_type == BROWSER_TYPE_EPIPHANY:
+             # Epiphany based
+diff --git i/usr/lib/webapp-manager/webapp-manager.py w/usr/lib/webapp-manager/webapp-manager.py
+index a12add3..ac1c612 100755
+--- i/usr/lib/webapp-manager/webapp-manager.py
++++ w/usr/lib/webapp-manager/webapp-manager.py
+@@ -27,7 +27,7 @@ setproctitle.setproctitle("webapp-manager")
+ 
+ # i18n
+ APP = 'webapp-manager'
+-LOCALE_DIR = "/usr/share/locale"
++LOCALE_DIR = "/app/share/locale"
+ locale.bindtextdomain(APP, LOCALE_DIR)
+ gettext.bindtextdomain(APP, LOCALE_DIR)
+ gettext.textdomain(APP)
+@@ -67,7 +67,7 @@ class WebAppManagerWindow:
+         self.icon_theme = Gtk.IconTheme.get_default()
+ 
+         # Set the Glade file
+-        gladefile = "/usr/share/webapp-manager/webapp-manager.ui"
++        gladefile = "/app/share/webapp-manager/webapp-manager.ui"
+         self.builder = Gtk.Builder()
+         self.builder.set_translation_domain(APP)
+         self.builder.add_from_file(gladefile)
+@@ -224,7 +224,7 @@ class WebAppManagerWindow:
+         cell.set_property("surface", surface)
+ 
+     def open_keyboard_shortcuts(self, widget):
+-        gladefile = "/usr/share/webapp-manager/shortcuts.ui"
++        gladefile = "/app/share/webapp-manager/shortcuts.ui"
+         builder = Gtk.Builder()
+         builder.set_translation_domain(APP)
+         builder.add_from_file(gladefile)
