@@ -14,6 +14,7 @@ finish-args:
   - --own-name=org.mpris.MediaPlayer2.librepods
   - --allow=bluetooth
   - --device=all
+  - --socket=session-bus
 
 
 modules:
@@ -21,6 +22,8 @@ modules:
     buildsystem: cmake-ninja
     builddir: true
     subdir: linux
+    opts:
+      - -DCMAKE_BUILD_TYPE=Release
     sources:
       - type: git
         url: https://github.com/kavishdevar/librepods
