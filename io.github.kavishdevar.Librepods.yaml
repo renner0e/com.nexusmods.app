@@ -1,0 +1,28 @@
+app-id: io.github.kavishdevar.Librepods
+runtime: org.kde.Platform
+runtime-version: "6.9"
+sdk: org.kde.Sdk
+command: librepods
+finish-args:
+  - --share=network
+  - --share=ipc #X11
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --system-talk-name=org.bluez
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --own-name=org.mpris.MediaPlayer2.librepods
+
+
+modules:
+  - name: librepods
+    buildsystem: cmake-ninja
+    builddir: true
+    subdir: linux
+    sources:
+      - type: git
+        url: https://github.com/kavishdevar/librepods
+        commit: b8e9765aff50e85c4e75fe526adc5d1c6c13ac43
+    post-install:
+      - mv /app/bin/applinux /app/bin/librepods
+
