@@ -12,6 +12,8 @@ finish-args:
   - --system-talk-name=org.bluez
   - --talk-name=org.kde.StatusNotifierWatcher
   - --own-name=org.mpris.MediaPlayer2.librepods
+  - --allow=bluetooth
+  - --device=all
 
 
 modules:
