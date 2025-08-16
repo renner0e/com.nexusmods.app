@@ -11,11 +11,11 @@ finish-args:
   - --socket=pulseaudio
   - --system-talk-name=org.bluez.*
   - --talk-name=org.kde.StatusNotifierWatcher
-  - --own-name=org.mpris.MediaPlayer2.librepods
+  - --own-name=org.mpris.MediaPlayer2.*
   - --allow=bluetooth
   - --device=all
-  - --socket=session-bus
-  - --own-name=org.kde.*
+  # Worth a try idk
+  - --talk-name=org.freedesktop.Flatpak
 
 
 modules:
