@@ -14,8 +14,6 @@ finish-args:
   - --own-name=org.mpris.MediaPlayer2.*
   - --allow=bluetooth
   - --device=all
-  # Worth a try idk
-  - --talk-name=org.freedesktop.Flatpak
 
 
 modules:
@@ -23,7 +21,7 @@ modules:
     buildsystem: cmake-ninja
     builddir: true
     subdir: linux
-    opts:
+    config-opts:
       - -DCMAKE_BUILD_TYPE=Release
     sources:
       - type: git
