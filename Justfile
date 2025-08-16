@@ -4,7 +4,7 @@ default:
 
 
 build:
-  flatpak run org.flatpak.Builder --force-clean --install build --verbose --user io.github.kavishdevar.Librepods.yaml
+  flatpak run org.flatpak.Builder --force-clean --install --install-deps-from=flathub build --verbose --user io.github.kavishdevar.Librepods.yaml
 
 run-debug:
   flatpak run --command=bash io.github.kavishdevar.Librepods
