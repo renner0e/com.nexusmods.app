@@ -9,12 +9,13 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --socket=pulseaudio
-  - --system-talk-name=org.bluez
+  - --system-talk-name=org.bluez.*
   - --talk-name=org.kde.StatusNotifierWatcher
   - --own-name=org.mpris.MediaPlayer2.librepods
   - --allow=bluetooth
   - --device=all
   - --socket=session-bus
+  - --own-name=org.kde.*
 
 
 modules:
