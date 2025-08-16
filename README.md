@@ -7,3 +7,5 @@ Upstream needs to use portals
 
 https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.DynamicLauncher.html
 
+
+Yellow W Icon
