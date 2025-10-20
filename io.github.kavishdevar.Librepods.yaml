@@ -2,7 +2,7 @@ app-id: io.github.kavishdevar.Librepods
 runtime: org.kde.Platform
 runtime-version: "6.9"
 sdk: org.kde.Sdk
-command: librepods
+command: applinux
 finish-args:
   - --share=network
   - --share=ipc #X11
@@ -26,7 +26,4 @@ modules:
     sources:
       - type: git
         url: https://github.com/kavishdevar/librepods
-        commit: b8e9765aff50e85c4e75fe526adc5d1c6c13ac43
-    post-install:
-      - mv /app/bin/applinux /app/bin/librepods
-
+        commit: e437572355d7390cd51dcd16ee5456ce8abf3cab
